@@ -1,3 +1,7 @@
+# ConnectedHomes Fork Reasoning
+
+Identical to forked repo except that this merges https://github.com/jamesbrucepower/node-avro-io/pull/22
+
 Node Avro IO
 ============
 
