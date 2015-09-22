@@ -157,6 +157,10 @@ describe('IO', function(){
             })
         })
         describe('readLong()', function(){
+            it('should decode and return a zero', function(){
+                block.write(new Buffer([0x00]));
+                decoder.readLong().should.equal(0);
+            });
             it('should decode and return a long', function(){
                 block.write(new Buffer([0x94, 0x02]));
                 decoder.readLong().should.equal(138);
@@ -168,6 +172,14 @@ describe('IO', function(){
             it('should decode and return the max int', function(){
                 block.write(new Buffer([0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x1F ]));
                 decoder.readLong().should.equal(9007199254740991);
+            });
+            it('should decode and return the negative max int', function(){
+                block.write(new Buffer([0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x1F ]));
+                decoder.readLong().should.equal(-9007199254740992);
+            });
+            it('should decode and return the max int + 1', function(){
+                block.write(new Buffer([0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x20 ]));
+                decoder.readLong().should.equal(9007199254740993);
             });
         })
         describe('readFloat()', function(){
