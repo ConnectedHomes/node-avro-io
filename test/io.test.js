@@ -160,7 +160,15 @@ describe('IO', function(){
             it('should decode and return a long', function(){
                 block.write(new Buffer([0x94, 0x02]));
                 decoder.readLong().should.equal(138);
-            })
+            });
+            it('should decode and return a negative long', function(){
+                block.write(new Buffer([0x95, 0x02]));
+                decoder.readLong().should.equal(-139);
+            });
+            it('should decode and return the max int', function(){
+                block.write(new Buffer([0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x1F ]));
+                decoder.readLong().should.equal(9007199254740991);
+            });
         })
         describe('readFloat()', function(){
             it('should decode and return a 32bit float', function(){
