@@ -169,6 +169,14 @@ describe('IO', function(){
                 block.write(new Buffer([0x95, 0x02]));
                 decoder.readLong().should.equal(-139);
             });
+            it('should decode and return a large long', function(){
+                block.write(new Buffer([0xFE, 0xFF, 0xFF, 0xFF, 0x7F]));
+                decoder.readLong().should.equal(17179869183);
+            });
+            it('should decode and return a large negative long', function(){
+                block.write(new Buffer([0xFF, 0xFF, 0xFF, 0xFF, 0x7F]));
+                decoder.readLong().should.equal(-17179869184);
+            });
             it('should decode and return the max int', function(){
                 block.write(new Buffer([0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x1F ]));
                 decoder.readLong().should.equal(9007199254740991);
