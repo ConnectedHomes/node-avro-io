@@ -173,14 +173,6 @@ describe('IO', function(){
                 block.write(new Buffer([0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x1F ]));
                 decoder.readLong().should.equal(9007199254740991);
             });
-            it('should decode and return the negative max int', function(){
-                block.write(new Buffer([0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x1F ]));
-                decoder.readLong().should.equal(-9007199254740992);
-            });
-            it('should decode and return the max int + 1', function(){
-                block.write(new Buffer([0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x20 ]));
-                decoder.readLong().should.equal(9007199254740993);
-            });
         })
         describe('readFloat()', function(){
             it('should decode and return a 32bit float', function(){
